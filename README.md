@@ -5,16 +5,16 @@ cognit can be used with this command:
 
 ```
 import cognit as cn
-import numpy as np
 
-dataset = cn.deepflow.dataset.mnist
-(X_train,y_train), (X_train,y_train) = cn.deepflow.dataset.load()
+mnist = cn.deepflow.dataset.mnist()
+(trainX,trainY) = mnist.load()
 
-model = cn.deepflow.sequential([
-    cn.deepflow.layers.flatten(X=12),
-    cn.deepflow.layers.dense(128,activation="relu"),
-    cn.deepflow.layers.dense(10,activation="softmax")
+cn.deepflow.sequential([
+    cn.deepflow.layers.flatten(input_shape=(28,28)),
+    cn.deepflow.layers.dense(12,1,activation="relu"),
+    cn.deepflow.layers.dropout(0.2),
+    cn.deepflow.layers.dense(10,1,activation="softmax")
 ])
 
-cn.deepflow.train_data(X=X_train,y=y_train,optimiser="adam",epochs=100)
+cn.deepflow.train_data(optimiser="adam",X=trainX,y=trainY,loss_calc="sce",epochs=100)
 ```
